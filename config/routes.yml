@@ -31,11 +31,9 @@
 index: ['GET', '/', 'index']
 
 actesCcam: ['GET', '/ccam/actes/[a:code]/', 'actesCcam']
+actesCcamDetails: ['GET', '/ccam/actes/[a:code]/[i:activite]/[i:phase]/', 'actesCcamDetails']
+conventionsListe: ['GET', '/ccam/conventions/liste/', 'conventionsListe']
+modificateurs: ['GET', '/ccam/modificateurs/liste/[i:convention]/', 'modificateursListe']
 
 actesNgap: ['GET', '/ngap/actes/[a:code]/', 'actesNgap']
-
-actesCcamDetails: ['GET', '/ccam/actes/[a:code]/[i:activite]/[i:phase]/', 'actesCcamDetails']
-
-conventionsListe: ['GET', '/ccam/conventions/liste/', 'conventionsListe']
-
-modificateurs: ['GET', '/ccam/modificateurs/liste/[i:convention]/', 'modificateursListe']
+actesNgapListerParCodePrestation: ['GET', '/ngap/actes/liste/codePrestation/[a:codePrestation]/', 'actesNgapListerParCodePrestation']

@@ -35,7 +35,15 @@ class msTools
  * @return int n° de version de la ccam
  */
   public static function getCcamVersion() {
-    return msSQL::sqlUniqueChamp("select val from ccam where param = 'ccamVersion'");
+    return msSQL::sqlUniqueChamp("select val from params where param = 'ccamVersion'");
+  }
+
+/**
+ * Obtenir la version de la NGAP
+ * @return int n° de version de la ccam
+ */
+  public static function getNgapVersion() {
+    return msSQL::sqlUniqueChamp("select val from params where param = 'ngapVersion'");
   }
 
 /**
@@ -69,7 +77,7 @@ class msTools
 /**
  * Valider le format d'un code CCAM
  * @param  string $code code à évaluer
- * @return boolean       true / false 
+ * @return boolean       true / false
  */
   public static function validateCcamCode($code) {
     if(preg_match('#^[A-Z]{4}[0-9]{3}$#', $code)) {

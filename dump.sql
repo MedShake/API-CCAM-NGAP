@@ -26,23 +26,52 @@
 --
 
 
+--
+-- Base de données :  `CCAM`
+--
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ccam`
+-- Structure de la table `ngap`
 --
 
-CREATE TABLE `ccam` (
+CREATE TABLE `ngap` (
+  `code` varchar(5) NOT NULL,
+  `type` enum('consultation','majoration','indemnité','forfait','autre') DEFAULT NULL,
+  `label` text NOT NULL,
+  `partieNgap` tinyint(1) DEFAULT NULL,
+  `articleNgap` varchar(10) DEFAULT NULL,
+  `dtDecisionUncam` date DEFAULT NULL,
+  `codePrestation` varchar(5) DEFAULT NULL,
+  `reserveConven` enum('n','o') NOT NULL DEFAULT 'n',
+  `tarifMetro` decimal(6,2) DEFAULT NULL,
+  `tarif971` decimal(6,2) DEFAULT NULL,
+  `tarif972` decimal(6,2) DEFAULT NULL,
+  `tarif973` decimal(6,2) DEFAULT NULL,
+  `tarif974` decimal(6,2) DEFAULT NULL,
+  `tarif976` decimal(6,2) DEFAULT NULL,
+  `dtActualisation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `params`
+--
+
+CREATE TABLE `params` (
   `param` varchar(255) NOT NULL,
   `val` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `ccam`
+-- Contenu de la table `params`
 --
 
-INSERT INTO `ccam` (`param`, `val`) VALUES
-('ccamVersion', '');
+INSERT INTO `params` (`param`, `val`) VALUES
+('ccamVersion', ''),
+('ngapVersion', '');
 
 -- --------------------------------------------------------
 
@@ -197,27 +226,15 @@ CREATE TABLE `R_TB23` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Structure de la table `ngap`
---
-
-CREATE TABLE `ngap` (
-  `code` varchar(4) NOT NULL,
-  `label` varchar(255) NOT NULL,
-  `codeFse` varchar(4) DEFAULT NULL,
-  `reserveConven` enum('n','o') NOT NULL DEFAULT 'n',
-  `tarifMetro` decimal(6,2) DEFAULT NULL,
-  `tarif971` decimal(6,2) DEFAULT NULL,
-  `tarif972` decimal(6,2) DEFAULT NULL,
-  `tarif973` decimal(6,2) DEFAULT NULL,
-  `tarif974` decimal(6,2) DEFAULT NULL,
-  `tarif976` decimal(6,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
---
 -- Index pour les tables exportées
 --
 
+--
+-- Index pour la table `ngap`
+--
+ALTER TABLE `ngap`
+  ADD PRIMARY KEY (`code`),
+  ADD KEY `codePrestation` (`codePrestation`);
 --
 -- Index pour la table `R_ACTE`
 --
@@ -254,9 +271,3 @@ ALTER TABLE `R_ACTIVITE_PHASE_DOM`
 --
 ALTER TABLE `R_TB23`
   ADD PRIMARY KEY (`COD_GRILLE`);
-
---
--- Index pour la table `ngap`
---
-ALTER TABLE `ngap`
-  ADD PRIMARY KEY (`code`);

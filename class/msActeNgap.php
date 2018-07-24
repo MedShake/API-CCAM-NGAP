@@ -34,13 +34,26 @@ class msActeNgap
  * @var string
  */
   private $_acte;
+/**
+ * Code prestation
+ * @var string
+ */
+  private $_code_prestation;
 
 /**
  * Définir le code acte
- * @param string $acte code acte CCAM
+ * @param string $acte code acte NGAP
  */
   public function setActe($acte) {
     return $this->_acte = msSQL::cleanVar(strip_tags($acte));
+  }
+
+/**
+ * Définir le code prestation
+ * @param string $acte code acte NGAP
+ */
+  public function setCodePrestation($code_prestation) {
+    return $this->_code_prestation = msSQL::cleanVar(strip_tags($code_prestation));
   }
 
 /**
@@ -48,10 +61,18 @@ class msActeNgap
  * @return array informations générales
  */
   public function getActeInfoGenerales() {
-    $d=msSQL::sqlUnique("select code, label, codeFse, tarifMetro, tarif971, tarif972, tarif973, tarif974, tarif976 from ngap where code = '".$this->_acte."' limit 1");
-    msTools::convertToFloat($d, ['tarifMetro', 'tarif971', 'tarif972', 'tarif973', 'tarif974', 'tarif976']);
+    $d=msSQL::sqlUnique("select code, label, type, partieNgap, articleNgap, dtDecisionUncam, codePrestation, tarifMetro, tarif971, tarif972, tarif973, tarif974, tarif976, dtActualisation from ngap where code = '".$this->_acte."' limit 1");
+    msTools::convertToFloat($d, ['partieNgap', 'tarifMetro', 'tarif971', 'tarif972', 'tarif973', 'tarif974', 'tarif976']);
     return $d;
   }
 
+/**
+ * Obtenir une liste d'actes via le code prestation agrégé
+ * @return array codes actes
+ */
+  public function getListeActesViaCodePrestation() {
+    $d=msSQL::sql2tabSimple("select code from ngap where codePrestation = '".$this->_code_prestation."' ");
+    return $d;
+  }
 
 }

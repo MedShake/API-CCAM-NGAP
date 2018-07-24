@@ -58,8 +58,9 @@ $json=[];
 $error=[];
 if ($match and is_file('../controlers/'.$match['target'].'.php')) {
 
+  $p['config']['aPropos']['ccam']['ccamVersion']= (int) msTools::getCcamVersion();
+  $p['config']['aPropos']['ngap']['ngapVersion']= (string) msTools::getNgapVersion();
   $json['aPropos']=$p['config']['aPropos'];
-  $json['aPropos']['ccam']['ccamVersion']= (int) msTools::getCcamVersion();
 
   include '../controlers/'.$match['target'].'.php';
 
