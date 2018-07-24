@@ -197,6 +197,24 @@ CREATE TABLE `R_TB23` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Structure de la table `ngap`
+--
+
+CREATE TABLE `ngap` (
+  `code` varchar(4) NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `codeFse` varchar(4) DEFAULT NULL,
+  `reserveConven` enum('n','o') NOT NULL DEFAULT 'n',
+  `tarifMetro` decimal(6,2) DEFAULT NULL,
+  `tarif971` decimal(6,2) DEFAULT NULL,
+  `tarif972` decimal(6,2) DEFAULT NULL,
+  `tarif973` decimal(6,2) DEFAULT NULL,
+  `tarif974` decimal(6,2) DEFAULT NULL,
+  `tarif976` decimal(6,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
 -- Index pour les tables exportées
 --
 
@@ -236,3 +254,9 @@ ALTER TABLE `R_ACTIVITE_PHASE_DOM`
 --
 ALTER TABLE `R_TB23`
   ADD PRIMARY KEY (`COD_GRILLE`);
+
+--
+-- Index pour la table `ngap`
+--
+ALTER TABLE `ngap`
+  ADD PRIMARY KEY (`code`);

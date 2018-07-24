@@ -32,6 +32,8 @@ index: ['GET', '/', 'index']
 
 actesCcam: ['GET', '/ccam/actes/[a:code]/', 'actesCcam']
 
+actesNgap: ['GET', '/ngap/actes/[a:code]/', 'actesNgap']
+
 actesCcamDetails: ['GET', '/ccam/actes/[a:code]/[i:activite]/[i:phase]/', 'actesCcamDetails']
 
 conventionsListe: ['GET', '/ccam/conventions/liste/', 'conventionsListe']
