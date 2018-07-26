@@ -21,12 +21,22 @@
 */
 
 /**
-* Controler : acte NGAP
+* Controler : acte CCAM, prescripteurs possibles
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-$acte = new msActeNgap;
-$acte->setActe($match['params']['code']);
-$json['data'] = $acte->getActeInfoGenerales();
+
+if(msTools::validateCcamCode($match['params']['code'])) {
+  $codeCcam = $match['params']['code'];
+} else {
+  $error[]="Le code CCAM n'est pas correct";
+}
+
+if(empty($error)) {
+  $acte = new msCcamActe;
+  $acte->setActe($codeCcam);
+  $json['data'] = $acte->getActePrescripteursPossibles();
+
+}

@@ -27,7 +27,7 @@
 *
 */
 
-class msActeNgap
+class msNgapActe
 {
 /**
  * Code de l'acte NGAP
@@ -57,7 +57,7 @@ class msActeNgap
   }
 
 /**
- * Obtenir les informations générales sur un acte CCAM
+ * Obtenir les informations générales sur un acte NGAP
  * @return array informations générales
  */
   public function getActeInfoGenerales() {

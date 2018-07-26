@@ -21,13 +21,13 @@
 */
 
 /**
-* Controler : acte CCAM, détails 
+* Controler : acte CCAM, associations
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-$acte = new msActeCcam;
+$acte = new msCcamActe;
 
 if(msTools::validateCcamCode($match['params']['code'])) {
   $acte->setActe($match['params']['code']);
@@ -37,14 +37,9 @@ if(msTools::validateCcamCode($match['params']['code'])) {
   } else {
     $error[]="Le code activité n'est pas correct pour cet acte";
   }
-  if(is_numeric($match['params']['phase'])) {
-    $acte->setPhase((int)$match['params']['phase']);
-  } else {
-    $error[]="Le code phase n'est pas correct pour cet acte";
-  }
 
-  if(!empty($error) or !$acte->verifierActeActivitePhase()) {
-    $error[]="L'association code activité / code phase n'est pas correct pour cet acte";
+  if(!$acte->verifierActeActivite()) {
+    $error[]="L'activité n'existe pas pour cet acte";
   }
 
 } else {
@@ -54,12 +49,5 @@ if(msTools::validateCcamCode($match['params']['code'])) {
 
 
 if(empty($error)) {
-
-  $json['data']['activite']=$acte->getActivite();
-  $json['data']['phase']=$acte->getPhase();
-
-  $json['data'] = array_merge($json['data'], $acte->getActeInfoGenerales());
-  $json['data']['tarifParConventionPs']=$acte->getActeTarifsParConventionPs();
-  $json['data']['modificateursApplicables']=$acte->getActeModificateursToutesConventions();
-  $json['data']['majorationsDom']=$acte->getActeMajorationsDom();
+  $json['data'] = $acte->getActeAssociations();
 }

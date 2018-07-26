@@ -1,0 +1,76 @@
+#
+# This file is part of MedShake CCAM NGAP API.
+#
+# Copyright (c) 2018
+# Bertrand Boutillier <b.boutillier@gmail.com>
+# http://www.medshake.net
+#
+# MedShake CCAM NGAP API is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# MedShake CCAM NGAP API is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with MedShake CCAM NGAP API.  If not, see <http://www.gnu.org/licenses/>.
+#
+#
+#######################################
+#
+# Documentation
+#
+# Ensemble des points d'entrée dans l'api documentés au format yaml
+#
+#######################################
+
+ngap:
+  "/ngap/actes/{code}/":
+    description: "Obtenir les informations générales sur l'acte NGAP à partir du code de l'acte."
+    tester: "/ngap/actes/MEG/"
+  "/ngap/actes/liste/codePrestation/{codePrestation}/":
+    description: "Obtenir la liste des prestations NGAP recouvertes par un code prestation agrégé."
+    tester: "/ngap/actes/liste/codePrestation/MCX/"
+ccam:
+  "Actes":
+    "/ccam/actes/{code}/":
+      description: "Obtenir les informations générales sur l'acte CCAM à partir du code de l'acte."
+      tester: "/ccam/actes/BACA008/"
+    "/ccam/actes/{code}/{activite}/{phase}/":
+      description: "Obtenir les informations détaillées sur un acte CCAM à partir du code acte, du code activité et de du code phase."
+      tester: "/ccam/actes/BACA008/1/0/"
+    "/ccam/actes/{code}/{activite}/associations/":
+      description: "Obtenir les actes associables à cet acte et pour ce code activité."
+      tester: "/ccam/actes/LBLD017/1/associations/"
+    "/ccam/actes/{code}/incompatibilites/":
+      description: "Obtenir les actes incompatibles avec cet acte."
+      tester: "/ccam/actes/HCGA109/incompatibilites/"
+    "/ccam/actes/{code}/notes/":
+      description: "Obtenir les notes de l'acte."
+      tester: "/ccam/actes/LBLD017/notes/"
+    "/ccam/actes/{code}/position/":
+      description: "Obtenir les informations de positionnement de l'acte dans l'arborescence de la CCAM."
+      tester: "/ccam/actes/BACA008/position/"
+    "/ccam/actes/{code}/prescripteurs/":
+      description: "Obtenir les prescripteurs possibles pour cet acte."
+      tester: "/ccam/actes/HBLD332/prescripteurs/"
+    "/ccam/actes/{code}/priseEnCharge/":
+      description: "Obtenir les conditions de prise en charge pour cet acte."
+      tester: "/ccam/actes/HCGA109/priseEnCharge/"
+    "/ccam/actes/{code}/voisins/":
+      description: "Obtenir les voisins de l'acte dans l'arborescence de la CCAM.<br>NB : aucun filtre n'est appliqué, tous les codes distincts trouvés sont retournés sans préjuger de leur validité."
+      tester: "/ccam/actes/BACA008/voisins/"
+  "Correspondances":
+    "/ccam/correspondances/{parametre}/":
+      description: "Obtenir le tableau de correspondance entre codes et libellés."
+      tester: ""
+  "Autres":
+    "/ccam/conventions/liste/":
+      description: "Obtenir la liste des équivalences entre codes de convention PS et libellés."
+      tester: "/ccam/conventions/liste/"
+    "/ccam/modificateurs/liste/{convention}/":
+      description: "Obtenir la liste des modicateurs CCAM actifs pour une convention PS."
+      tester: "/ccam/modificateurs/liste/9/"

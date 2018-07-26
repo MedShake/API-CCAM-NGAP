@@ -27,7 +27,7 @@
 *
 */
 
-class msModificateurs extends msActeCcam
+class msCcamModificateurs extends msCcamActe
 {
 
 /**

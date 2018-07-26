@@ -21,18 +21,22 @@
 */
 
 /**
-* Controler : liste des modificateurs
+* Controler : acte CCAM, prise en charge 
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-if(isset($match['params']['convention']) and is_numeric($match['params']['convention'])) {
+$acte = new msCcamActe;
 
-  $modificateurs = new msModificateurs;
-  $modificateurs->setConvention($match['params']['convention']);
-  $json['data']=$modificateurs->getModificateurActifsListePourConvention();
-
+if(msTools::validateCcamCode($match['params']['code'])) {
+  $acte->setActe($match['params']['code']);
 } else {
-  $error[]="erreur";
+  $error[]="Le code CCAM n'est pas correct";
+}
+
+
+
+if(empty($error)) {
+  $json['data'] = $acte->getActePriseEnCharge();
 }

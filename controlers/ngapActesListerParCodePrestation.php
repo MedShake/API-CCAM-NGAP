@@ -21,27 +21,12 @@
 */
 
 /**
-* Class de sortie d'informations sur les conventions ps
+* Controler : acte NGAP, lister par code prestation
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-class msConventions
-{
-
-/**
- * Obtenir la liste des conventions ps reconnues
- * @return array code convention => data
- */
-  public function getConventionsListe() {
-    $d = msSQL::sql2tabKey("select cod_grille, libelle, definition from R_TB23 order by cod_grille", 'cod_grille');
-    foreach($d as $k=>$v) {
-      settype($d[$k]['cod_grille'], 'int');
-
-    }
-    return $d;
-  }
-
-
-}
+$acte = new msNgapActe;
+$acte->setCodePrestation($match['params']['codePrestation']);
+$json['data'] = $acte->getListeActesViaCodePrestation();

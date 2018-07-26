@@ -30,10 +30,21 @@
 
 index: ['GET', '/', 'index']
 
-actesCcam: ['GET', '/ccam/actes/[a:code]/', 'actesCcam']
-actesCcamDetails: ['GET', '/ccam/actes/[a:code]/[i:activite]/[i:phase]/', 'actesCcamDetails']
-conventionsListe: ['GET', '/ccam/conventions/liste/', 'conventionsListe']
-modificateurs: ['GET', '/ccam/modificateurs/liste/[i:convention]/', 'modificateursListe']
+ccamActes: ['GET', '/ccam/actes/[a:code]/', 'ccamActes']
+ccamActesDetails: ['GET', '/ccam/actes/[a:code]/[i:activite]/[i:phase]/', 'ccamActesDetails']
+ccamActesAssociations: ['GET', '/ccam/actes/[a:code]/[i:activite]/associations/', 'ccamActesAssociations']
 
-actesNgap: ['GET', '/ngap/actes/[a:code]/', 'actesNgap']
-actesNgapListerParCodePrestation: ['GET', '/ngap/actes/liste/codePrestation/[a:codePrestation]/', 'actesNgapListerParCodePrestation']
+ccamActesPrescripteurs: ['GET', '/ccam/actes/[a:code]/prescripteurs/', 'ccamActesPrescripteurs']
+ccamActesPriseEnCharge: ['GET', '/ccam/actes/[a:code]/priseEnCharge/', 'ccamActesPriseEnCharge']
+ccamActesIncompatibilites: ['GET', '/ccam/actes/[a:code]/incompatibilites/', 'ccamActesIncompatibilites']
+ccamActesNotes: ['GET', '/ccam/actes/[a:code]/notes/', 'ccamActesNotes']
+ccamActesPosition: ['GET', '/ccam/actes/[a:code]/position/', 'ccamActesPosition']
+ccamActesVoisins: ['GET', '/ccam/actes/[a:code]/voisins/', 'ccamActesVoisins']
+
+ccamCorrespondances: ['GET', '/ccam/correspondances/[a:correspondance]/', 'ccamCorrespondances']
+
+ccamConventionsListe: ['GET', '/ccam/conventions/liste/', 'ccamConventionsListe']
+ccamModificateurs: ['GET', '/ccam/modificateurs/liste/[i:convention]/', 'ccamModificateursListe']
+
+ngapActes: ['GET', '/ngap/actes/[a:code]/', 'ngapActes']
+ngapActesListerParCodePrestation: ['GET', '/ngap/actes/liste/codePrestation/[a:codePrestation]/', 'ngapActesListerParCodePrestation']

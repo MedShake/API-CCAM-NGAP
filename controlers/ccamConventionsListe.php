@@ -21,23 +21,11 @@
 */
 
 /**
-* Controler : acte CCAM, généralités  
+* Controler : liste des conventions PS
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-
-if(msTools::validateCcamCode($match['params']['code'])) {
-  $codeCcam = $match['params']['code'];
-} else {
-  $error[]="Le code CCAM n'est pas correct";
-}
-
-if(empty($error)) {
-  $acte = new msActeCcam;
-  $acte->setActe($codeCcam);
-  $json['data'] = $acte->getActeInfoGenerales();
-  $json['data']['activites'] = $acte->getActeActivites();
-
-}
+$convention = new msCcamConventions;
+$json['data']=$convention->getConventionsListe();
