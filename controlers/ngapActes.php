@@ -28,5 +28,8 @@
 */
 
 $acte = new msNgapActe;
-$acte->setActe($match['params']['code']);
-$json['data'] = $acte->getActeInfoGenerales();
+if($acte->setActe($match['params']['code'])) {
+  $json['data'] = $acte->getActeInfoGenerales();
+} else {
+  $error[]="Le code NGAP n'est pas correct";
+}

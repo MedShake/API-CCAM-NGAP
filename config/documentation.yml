@@ -45,6 +45,9 @@ ccam:
     "/ccam/actes/{code}/{activite}/associations/":
       description: "Obtenir les actes associables à cet acte et pour ce code activité."
       tester: "/ccam/actes/LBLD017/1/associations/"
+    "/ccam/actes/{code}/executants/":
+      description: "Obtenir les executants possibles pour cet acte par code activité."
+      tester: "/ccam/actes/HBLD332/executants/"
     "/ccam/actes/{code}/incompatibilites/":
       description: "Obtenir les actes incompatibles avec cet acte."
       tester: "/ccam/actes/HCGA109/incompatibilites/"
@@ -63,6 +66,16 @@ ccam:
     "/ccam/actes/{code}/voisins/":
       description: "Obtenir les voisins de l'acte dans l'arborescence de la CCAM.<br>NB : aucun filtre n'est appliqué, tous les codes distincts trouvés sont retournés sans préjuger de leur validité."
       tester: "/ccam/actes/BACA008/voisins/"
+  "Arborescence":
+    "/ccam/arborescence/racine/":
+      description: "Obtenir les chapitres de 1er niveau dans l'arborescence CCAM."
+      tester: "/ccam/arborescence/racine/"
+    "/ccam/arborescence/chapitres/chapitre/{chapitre}/":
+      description: "Obtenir les informations sur un chapitre CCAM.<br>NB : la liste des actes du chapitre n'est pas filtrée, tous les codes distincts trouvés sont retournés sans préjuger de leur validité."
+      tester: "/ccam/arborescence/chapitres/chapitre/2.3.4/"
+    "/ccam/arborescence/chapitres/code/{code}/":
+      description: "Obtenir les informations sur un chapitre CCAM à portir de son code menu.<br>NB : la liste des actes du chapitre n'est pas filtrée, tous les codes distincts trouvés sont retournés sans préjuger de leur validité."
+      tester: "/ccam/arborescence/chapitres/code/154/"
   "Correspondances":
     "/ccam/correspondances/{parametre}/":
       description: "Obtenir le tableau de correspondance entre codes et libellés."

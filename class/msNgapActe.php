@@ -45,7 +45,11 @@ class msNgapActe
  * @param string $acte code acte NGAP
  */
   public function setActe($acte) {
-    return $this->_acte = msSQL::cleanVar(strip_tags($acte));
+    if(msSQL::sqlUniqueChamp("select code from ngap where code='".msSQL::cleanVar(strip_tags($acte))."' limit 1")) {
+      return $this->_acte = msSQL::cleanVar(strip_tags($acte));
+    } else {
+      return false;
+    }
   }
 
 /**
@@ -53,7 +57,11 @@ class msNgapActe
  * @param string $acte code acte NGAP
  */
   public function setCodePrestation($code_prestation) {
-    return $this->_code_prestation = msSQL::cleanVar(strip_tags($code_prestation));
+    if(msSQL::sqlUniqueChamp("select code from ngap where codePrestation='".msSQL::cleanVar(strip_tags($code_prestation))."' limit 1")) {
+      return $this->_code_prestation = msSQL::cleanVar(strip_tags($code_prestation));
+    } else {
+      return false;
+    }
   }
 
 /**
@@ -71,8 +79,11 @@ class msNgapActe
  * @return array codes actes
  */
   public function getListeActesViaCodePrestation() {
-    $d=msSQL::sql2tabSimple("select code from ngap where codePrestation = '".$this->_code_prestation."' ");
-    return $d;
+    if($d=msSQL::sql2tabSimple("select code from ngap where codePrestation = '".$this->_code_prestation."' ")) {
+      return $d;
+    } else {
+      return [];
+    }
   }
 
 }

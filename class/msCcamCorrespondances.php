@@ -45,7 +45,10 @@ class msCcamCorrespondances
     } else {
       $champLibelle1 = $champLibelle2 = $tab[1];
     }
-    $d = msSQL::sql2tabKey("select ".$champCode.", ".$champLibelle1." from ".$table." order by ".$champCode." asc", $champCode, $champLibelle2);
-    return $d;
+    if($d = msSQL::sql2tabKey("select ".$champCode.", ".$champLibelle1." from ".$table." order by ".$champCode." asc", $champCode, $champLibelle2)) {
+      return $d;
+    } else {
+      return [];
+    }
   }
 }

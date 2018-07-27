@@ -35,8 +35,11 @@ class msCcamModificateurs extends msCcamActe
  * @return array modificateurs actis
  */
   public function getModificateurActifsCodesPourConvention() {
-    $d = msSQL::sql2tabSimple("SELECT cod_modifi FROM R_TB11 WHERE `GRILLE_COD` = '".$this->getConvention()."' AND DT_DEBUT < NOW() and (DT_FIN > NOW() or DT_FIN is NULL) ORDER BY `R_TB11`.`COD_MODIFI` ASC");
-    return $d;
+    if($d = msSQL::sql2tabSimple("SELECT cod_modifi FROM R_TB11 WHERE `GRILLE_COD` = '".$this->getConvention()."' AND DT_DEBUT < NOW() and (DT_FIN > NOW() or DT_FIN is NULL) ORDER BY `R_TB11`.`COD_MODIFI` ASC")) {
+      return $d;
+    } else {
+      return [];
+    }
   }
 
 /**
@@ -62,8 +65,11 @@ class msCcamModificateurs extends msCcamActe
       foreach($d as $k=>$v) {
         msTools::convertToFloat($d[$k], ['coef', 'forfait']);
       }
+      return $d;
+    } else {
+      return [];
     }
-    return $d;
+
   }
 
 }

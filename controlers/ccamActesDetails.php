@@ -59,8 +59,8 @@ if(empty($error)) {
   $json['data']['phase']=$acte->getPhase();
 
   $json['data'] = array_merge($json['data'], $acte->getActeInfoGenerales(), $acte->getActeActivitePhaseComplement());
+  $json['data']['forfai_cod']=$acte->getActeForfait();
   $json['data']['tarifParConventionPs']=$acte->getActeTarifsParConventionPs();
   $json['data']['modificateursApplicables']=$acte->getActeModificateursToutesConventions();
   $json['data']['majorationsDom']=$acte->getActeMajorationsDom();
-
 }

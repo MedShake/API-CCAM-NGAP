@@ -81,10 +81,25 @@ class msTools
  */
   public static function validateCcamCode($code) {
     if(preg_match('#^[A-Z]{4}[0-9]{3}$#', $code)) {
-      return true;
+      if(msSQL::sqlUniqueChamp("select cod_acte from R_ACTE where cod_acte='".$code."' limit 1")) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
+  }
+
+/**
+ * Valider le paramètre chapitre CCAM
+ * @param  string $code chapitre sous la forme x.x.x
+ * @return boolean    true / false
+ */
+  public static function validateChapitreString($code) {
+    $codeRe = str_replace('.','', $code);
+    if(preg_match('#^[0-9]+$#', $codeRe) and is_numeric($codeRe{0})) return true;
+    return false;
   }
 
 }

@@ -55,6 +55,11 @@ class msCcamActe
  */
   private $_dt_modif;
 /**
+ * Date de modification acte + activité
+ * @var string
+ */
+  private $_aadt_modif;
+/**
  * Menu code de l'acte
  * @var int
  */
@@ -166,7 +171,11 @@ class msCcamActe
  */
   public function getActeActivites() {
     $d=msSQL::sql2tabSimple("select DISTINCT(ACTIV_COD) from R_ACTE_IVITE where ACTE_COD = '".$this->_acte."' ");
-    return array_map('intval', $d);
+    if(!empty($d)) {
+      return array_map('intval', $d);
+    } else {
+      return [];
+    }
   }
 
 /**
@@ -186,8 +195,17 @@ class msCcamActe
     if(!empty($d)) {
       return array_map('floatval', $d);
     } else {
-      return $d=[];
+      return [];
     }
+  }
+
+/**
+ * Obtenir le forfait prévu pour un acte
+ * @return string code forfait
+ */
+  public function getActeForfait() {
+    if(!isset($this->_dt_modif)) $this->_getActeDerniereDtModif();
+    msSQL::sqlUniqueChamp("select forfai_cod from R_ACTE_FORFAIT where ACTE_COD='".$this->_acte."' and ACDT_MODIF = '".$this->_dt_modif."' limit 1");
   }
 
 /**
@@ -197,11 +215,12 @@ class msCcamActe
   public function getActeModificateursToutesConventions() {
     $d=[];
     $modificateurs = new msCcamModificateurs;
-    $modificateurs = $modificateurs->getModificateurActifsCodesToutesConventions();
-    foreach($modificateurs as $k=>$v) {
-      $q = msSQL::sql2tab("SELECT max(AADT_MODIF) as maxdate, modifi_cod FROM R_ACTIVITE_MODIFICATEUR where AA_CODE='".$this->_acte.$this->_activite."' and modifi_cod in ('".implode("', '",$v)."') and AADT_MODIF='".$this->_dt_modif."' group by AA_CODE,MODIFI_COD");
-      if(!empty($q)) {
-        $d[$k] = array_column($q, 'modifi_cod');
+    if($modificateurs = $modificateurs->getModificateurActifsCodesToutesConventions()) {
+      foreach($modificateurs as $k=>$v) {
+        $q = msSQL::sql2tab("SELECT max(AADT_MODIF) as maxdate, modifi_cod FROM R_ACTIVITE_MODIFICATEUR where AA_CODE='".$this->_acte.$this->_activite."' and modifi_cod in ('".implode("', '",$v)."') and AADT_MODIF='".$this->_dt_modif."' group by AA_CODE,MODIFI_COD");
+        if(!empty($q)) {
+          $d[$k] = array_column($q, 'modifi_cod');
+        }
       }
     }
     return $d;
@@ -219,7 +238,7 @@ class msCcamActe
     if(!empty($d)) {
       return array_map('floatval', $d);
     } else {
-      return $d=[];
+      return [];
     }
   }
 
@@ -254,7 +273,7 @@ class msCcamActe
       }
       return $d;
     } else {
-      return $d=[];
+      return [];
     }
   }
 
@@ -273,7 +292,7 @@ class msCcamActe
       array_walk($d, "fcn");
       return $d;
     } else {
-      return $d=[];
+      return [];
     }
   }
 
@@ -288,7 +307,7 @@ class msCcamActe
       $d = array_column($d, 'acte_cod2');
       return $d;
     } else {
-      return $d=[];
+      return [];
     }
   }
 
@@ -302,6 +321,26 @@ class msCcamActe
     from R_ACTE_PRESCRIPTEUR as t1
     left join R_CATE_SPEC as t2 on t2.COD_CATSPE = t1.CATSPE_COD
     where t1.ACTE_COD='".$this->_acte."' and t1.ACDT_MODIF = '".$this->_dt_modif."' order by code", 'code', 'libelle');
+    if(empty($d)) return [];
+    return $d;
+  }
+
+/**
+ * Obtenir les executants possibles par code activité
+ * @return [type] [description]
+ */
+  public function getActeExecutantsPossiblesParActivite() {
+    $d=[];
+    if($activitesPossibles = $this->getActeActivites()) {
+      foreach($activitesPossibles as $acti) {
+        $this->setActivite($acti);
+        $this->_getActeActiviteDerniereDtModif();
+        $d[$acti] = msSQL::sql2tabKey("select t1.CATSPE_COD as code, t2.libelle
+          from R_ACTIVITE_EXECUTANT as t1
+          left join R_CATE_SPEC as t2 on t2.COD_CATSPE = t1.CATSPE_COD
+          where t1.AA_COD='".$this->_acte.$this->_activite."' and t1.AADT_MODIF = '".$this->_aadt_modif."' order by code", 'code', 'libelle');
+      }
+    }
     return $d;
   }
 
@@ -310,6 +349,7 @@ class msCcamActe
  * @return array tableau
  */
   public function getActePriseEnCharge() {
+    $d=[];
     $acte = $this->getActeInfoGenerales();
 
     $corres = new msCcamCorrespondances;
@@ -328,10 +368,11 @@ class msCcamActe
  */
   private function _getActeConditionsGen() {
     $d = msSQL::sql2tabKey("select t1.condge_cod as code, concat(t2.libelle, t2.libelle0, t2.libelle1, t2.libelle2, t2.libelle3, t2.libelle4, t2.libelle5, t2.libelle6, t2.libelle7, t2.libelle8, t2.libelle9, t2.libellea, t2.libelleb, t2.libellec, t2.libelled, t2.libellee) as libelle
-      from R_ACTE_COND_GEN as t1
-      left join R_COND_GEN as t2 on t2.COD_CONDGE = t1.condge_cod
-      where t1.ACTE_COD = '".$this->_acte."' ", 'code', 'libelle');
-      return $d;
+    from R_ACTE_COND_GEN as t1
+    left join R_COND_GEN as t2 on t2.COD_CONDGE = t1.condge_cod
+    where t1.ACTE_COD = '".$this->_acte."' ", 'code', 'libelle');
+    if(empty($d)) return [];
+    return $d;
   }
 
 /**
@@ -344,6 +385,7 @@ class msCcamActe
     from R_ACTE_EXO_TM as t1
     left join R_EXO_TM as t2 on t2.cod_exotm = t1.exotm_cod
     where t1.ACTE_COD='".$this->_acte."' and t1.ACDT_MODIF = '".$this->_dt_modif."'", 'code', 'libelle');
+    if(empty($d)) return [];
     return $d;
   }
 
@@ -356,6 +398,7 @@ class msCcamActe
     from R_ACTE_NAT_ASS as t1
     left join R_NAT_ASS as t2 on t2.COD_NATASS = t1.NATASS_COD
     where t1.ACTE_COD='".$this->_acte."' ", 'code', 'libelle');
+    if(empty($d)) return [];
     return $d;
   }
 
@@ -365,7 +408,9 @@ class msCcamActe
  */
   public function getActesVoisins() {
     if(!isset($this->_menu_cod)) $this->_getActeMenuCod();
-    return msSQL::sql2tabSimple("SELECT distinct(COD_ACTE)  FROM `R_ACTE` WHERE `MENU_COD` = '".$this->_menu_cod."' order by COD_ACTE asc");
+    $d = msSQL::sql2tabSimple("SELECT distinct(COD_ACTE)  FROM `R_ACTE` WHERE `MENU_COD` = '".$this->_menu_cod."' order by COD_ACTE asc");
+    if(empty($d)) return [];
+    return $d;
   }
 
 /**
@@ -385,11 +430,23 @@ class msCcamActe
   }
 
 /**
+ * Obtenir la dernière dt_modif acte + activité
+ * @return string dt_modif de l'acte
+ */
+  private function _getActeActiviteDerniereDtModif() {
+    return $this->_aadt_modif = msSQL::sqlUniqueChamp("select dt_modif from R_ACTE_IVITE where COD_AA='".$this->_acte.$this->_activite."' order by DT_MODIF desc limit 1");
+  }
+
+/**
  * Obtenir une ligne de R_MENU
  * @param  int $cod_menu cod_menu
  * @return array           ligne de R_MENU
  */
   private function _getLigneRMenu($cod_menu) {
-    return msSQL::sqlUnique("select cod_menu, rang, libelle, cod_pere from R_MENU where cod_menu='".$cod_menu."' limit 1 ");
+    if($d = msSQL::sqlUnique("select cod_menu, rang, libelle, cod_pere from R_MENU where cod_menu='".$cod_menu."' limit 1 ")) {
+      return $d;
+    } else {
+      return [];
+    }
   }
 }

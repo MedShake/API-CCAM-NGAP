@@ -21,15 +21,22 @@
 */
 
 /**
-* Controler : acte NGAP, lister par code prestation
+* Controler : acte CCAM, executants possibles par activité
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-$acte = new msNgapActe;
-if($acte->setCodePrestation($match['params']['codePrestation'])) {
-  $json['data'] = $acte->getListeActesViaCodePrestation();
+
+if(msTools::validateCcamCode($match['params']['code'])) {
+  $codeCcam = $match['params']['code'];
 } else {
-  $error[]="Le code prestation n'est pas correct";
+  $error[]="Le code CCAM n'est pas correct";
+}
+
+if(empty($error)) {
+  $acte = new msCcamActe;
+  $acte->setActe($codeCcam);
+  $json['data'] = $acte->getActeExecutantsPossiblesParActivite();
+
 }

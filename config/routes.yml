@@ -34,12 +34,17 @@ ccamActes: ['GET', '/ccam/actes/[a:code]/', 'ccamActes']
 ccamActesDetails: ['GET', '/ccam/actes/[a:code]/[i:activite]/[i:phase]/', 'ccamActesDetails']
 ccamActesAssociations: ['GET', '/ccam/actes/[a:code]/[i:activite]/associations/', 'ccamActesAssociations']
 
+ccamActesExecutants: ['GET', '/ccam/actes/[a:code]/executants/', 'ccamActesExecutants']
 ccamActesPrescripteurs: ['GET', '/ccam/actes/[a:code]/prescripteurs/', 'ccamActesPrescripteurs']
 ccamActesPriseEnCharge: ['GET', '/ccam/actes/[a:code]/priseEnCharge/', 'ccamActesPriseEnCharge']
 ccamActesIncompatibilites: ['GET', '/ccam/actes/[a:code]/incompatibilites/', 'ccamActesIncompatibilites']
 ccamActesNotes: ['GET', '/ccam/actes/[a:code]/notes/', 'ccamActesNotes']
 ccamActesPosition: ['GET', '/ccam/actes/[a:code]/position/', 'ccamActesPosition']
 ccamActesVoisins: ['GET', '/ccam/actes/[a:code]/voisins/', 'ccamActesVoisins']
+
+ccamArborescenceRacine: ['GET', '/ccam/arborescence/racine/', 'ccamArborescenceRacine']
+ccamArborescenceChapitresCode: ['GET', '/ccam/arborescence/chapitres/code/[i:code]/', 'ccamArborescenceChapitre']
+ccamArborescenceChapitresChapitre: ['GET', '/ccam/arborescence/chapitres/chapitre/[*:chapitre]/', 'ccamArborescenceChapitre']
 
 ccamCorrespondances: ['GET', '/ccam/correspondances/[a:correspondance]/', 'ccamCorrespondances']
 

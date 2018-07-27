@@ -21,22 +21,32 @@
 */
 
 /**
-* Controler : acte CCAM, généralités
+* Controler : arborescence CCAM, chapitre
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
+$arbo = new msCcamArborescence;
 
-if(msTools::validateCcamCode($match['params']['code'])) {
-  $codeCcam = $match['params']['code'];
-} else {
-  $error[]="Le code CCAM n'est pas correct";
+if(isset($match['params']['chapitre'])) {
+  if(msTools::validateChapitreString($match['params']['chapitre'])) {
+    if($arbo->setChapitre($match['params']['chapitre']) == false) {
+      $error[]="Ce chapitre CCAM n'existe pas ou n'est pas dans un format correct";
+    }
+  } else {
+    $error[]="Le chapitre CCAM n'est pas exprimé dans un format correct";
+  }
+} elseif(isset($match['params']['code'])) {
+  if($arbo->setChapitreParCode($match['params']['code']) == false ) {
+    $error[]="Ce chapitre CCAM n'existe pas";
+  }
 }
 
 if(empty($error)) {
-  $acte = new msCcamActe;
-  $acte->setActe($codeCcam);
-  $json['data'] = $acte->getActeInfoGenerales();
-  $json['data']['activites'] = $acte->getActeActivites();
+  $json['data'] = $arbo->getArboChapitreData();
+  $json['data']['notes'] = $arbo->getArboChapitreNotes();
+  $json['data']['actes'] = $arbo->getArboChapitreActes();
+  $json['data']['parents'] = $arbo->getArboChapitreParents();
+  $json['data']['enfants'] = $arbo->getArboChapitreEnfants();
 }

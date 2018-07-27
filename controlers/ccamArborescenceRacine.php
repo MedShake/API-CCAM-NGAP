@@ -21,15 +21,13 @@
 */
 
 /**
-* Controler : acte NGAP, lister par code prestation
+* Controler : arborescence CCAM, racine
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-$acte = new msNgapActe;
-if($acte->setCodePrestation($match['params']['codePrestation'])) {
-  $json['data'] = $acte->getListeActesViaCodePrestation();
-} else {
-  $error[]="Le code prestation n'est pas correct";
-}
+
+
+$arbo = new msCcamArborescence;
+$json['data'] = $arbo->getArboRacine();

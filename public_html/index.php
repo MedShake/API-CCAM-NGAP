@@ -68,10 +68,12 @@ if ($match and is_file('../controlers/'.$match['target'].'.php')) {
 
     //gestion erreurs
     if(!empty($error)) {
+      header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
       unset($json['data']);
       $json['erreurs']=$error;
+    } else {
+      header($_SERVER["SERVER_PROTOCOL"]." 200 OK");
     }
-
     header('Content-Type: application/json');
     echo json_encode($json);
 
@@ -88,5 +90,5 @@ if ($match and is_file('../controlers/'.$match['target'].'.php')) {
   }
 
 } else {
-  header("HTTP/1.0 404 Not Found");
+  header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 }
