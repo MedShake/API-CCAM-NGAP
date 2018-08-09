@@ -63,4 +63,6 @@ if(empty($error)) {
   $json['data']['tarifParConventionPs']=$acte->getActeTarifsParConventionPs();
   $json['data']['modificateursApplicables']=$acte->getActeModificateursToutesConventions();
   $json['data']['majorationsDom']=$acte->getActeMajorationsDom();
+  $json['data']['activites'] = array_keys($acte->getActeActivites());
+  $json['data']['activitesPhases'] = $acte->getActeActivites();
 }

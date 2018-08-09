@@ -40,6 +40,7 @@ ccamActesPriseEnCharge: ['GET', '/ccam/actes/[a:code]/priseEnCharge/', 'ccamActe
 ccamActesIncompatibilites: ['GET', '/ccam/actes/[a:code]/incompatibilites/', 'ccamActesIncompatibilites']
 ccamActesNotes: ['GET', '/ccam/actes/[a:code]/notes/', 'ccamActesNotes']
 ccamActesPosition: ['GET', '/ccam/actes/[a:code]/position/', 'ccamActesPosition']
+ccamActesRechercher: ['POST|GET', '/ccam/actes/rechercher/', 'ccamActesRechercher']
 ccamActesVoisins: ['GET', '/ccam/actes/[a:code]/voisins/', 'ccamActesVoisins']
 
 ccamArborescenceRacine: ['GET', '/ccam/arborescence/racine/', 'ccamArborescenceRacine']

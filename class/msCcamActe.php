@@ -170,9 +170,14 @@ class msCcamActe
  * @return array codes activités possibles
  */
   public function getActeActivites() {
-    $d=msSQL::sql2tabSimple("select DISTINCT(ACTIV_COD) from R_ACTE_IVITE where ACTE_COD = '".$this->_acte."' ");
-    if(!empty($d)) {
-      return array_map('intval', $d);
+    if($d=msSQL::sql2tabKey("select DISTINCT(ACTIV_COD) as code from R_ACTE_IVITE where ACTE_COD = '".$this->_acte."' order by code",'code')) {
+      foreach($d as $k=>$v) {
+        $tab[$k]=msSQL::sql2tabSimple("select DISTINCT(phase_cod) as phase from R_ACTE_IVITE_PHASE where AA_COD='".$this->_acte.$k."' order by phase");
+        $tab[$k] = array_map('intval', $tab[$k]);
+      }
+    }
+    if(!empty($tab)) {
+      return $tab;
     } else {
       return [];
     }
@@ -205,7 +210,7 @@ class msCcamActe
  */
   public function getActeForfait() {
     if(!isset($this->_dt_modif)) $this->_getActeDerniereDtModif();
-    msSQL::sqlUniqueChamp("select forfai_cod from R_ACTE_FORFAIT where ACTE_COD='".$this->_acte."' and ACDT_MODIF = '".$this->_dt_modif."' limit 1");
+    return msSQL::sqlUniqueChamp("select forfai_cod from R_ACTE_FORFAIT where ACTE_COD='".$this->_acte."' and ACDT_MODIF = '".$this->_dt_modif."' limit 1");
   }
 
 /**
@@ -331,7 +336,7 @@ class msCcamActe
  */
   public function getActeExecutantsPossiblesParActivite() {
     $d=[];
-    if($activitesPossibles = $this->getActeActivites()) {
+    if($activitesPossibles = array_keys($this->getActeActivites())) {
       foreach($activitesPossibles as $acti) {
         $this->setActivite($acti);
         $this->_getActeActiviteDerniereDtModif();

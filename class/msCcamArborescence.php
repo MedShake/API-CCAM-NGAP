@@ -213,12 +213,19 @@ class msCcamArborescence
       $tabMenu[]=$currentRow;
       $currentMenuCod=$currentRow['cod_pere'];
     }
-    $this->_chapitreCodMenu=$tabMenu[0]['cod_menu'];
-    $this->_chapitreRang=$tabMenu[0]['rang'];
-    $this->_chapitreLibelle=$tabMenu[0]['libelle'];
-    $this->_chapitreCodPere=$tabMenu[0]['cod_pere'];
-    unset($tabMenu[0]);
-    return $this->_chapitreArboParents = array_reverse($tabMenu);
+    if(isset($tabMenu[0])){
+      $this->_chapitreCodMenu=$tabMenu[0]['cod_menu'];
+      $this->_chapitreRang=$tabMenu[0]['rang'];
+      $this->_chapitreLibelle=$tabMenu[0]['libelle'];
+      $this->_chapitreCodPere=$tabMenu[0]['cod_pere'];
+    }
+    if(!empty($tabMenu)) {
+      unset($tabMenu[0]);
+      $this->_chapitreArboParents = array_reverse($tabMenu);
+      return true;
+    } else {
+      return false;
+    }
   }
 
 /**

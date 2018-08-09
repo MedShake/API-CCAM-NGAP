@@ -38,5 +38,6 @@ if(empty($error)) {
   $acte = new msCcamActe;
   $acte->setActe($codeCcam);
   $json['data'] = $acte->getActeInfoGenerales();
-  $json['data']['activites'] = $acte->getActeActivites();
+  $json['data']['activites'] = array_keys($acte->getActeActivites());
+  $json['data']['activitesPhases'] = $acte->getActeActivites();
 }

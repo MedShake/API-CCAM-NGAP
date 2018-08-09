@@ -27,7 +27,7 @@
 *
 */
 
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 setlocale(LC_ALL, "fr_FR.UTF-8");
 
 // Composer class auto-upload
