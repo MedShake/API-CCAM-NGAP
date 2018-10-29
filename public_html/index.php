@@ -40,8 +40,17 @@ spl_autoload_register(function ($class) {
     }
 });
 
-// chargment des paramètres de configuration
+// chargement des paramètres de configuration
 $p['config']=Spyc::YAMLLoad('../config/config.yml');
+
+// rotation de la base de données à dates prévues
+if(isset($p['config']['sqlBaseRotation']) and is_array($p['config']['sqlBaseRotation'])) {
+  ksort($p['config']['sqlBaseRotation']);
+  $nowDate=date('Y-m-d');
+  foreach($p['config']['sqlBaseRotation'] as $dateApplication=>$baseVersion) {
+    if($nowDate >= $dateApplication) {$p['config']['sqlBase']=$baseVersion;}
+  }
+}
 
 // SQL connexion
 $mysqli=msSQL::sqlConnect();
@@ -58,7 +67,7 @@ $json=[];
 $error=[];
 if ($match and is_file('../controlers/'.$match['target'].'.php')) {
 
-  $p['config']['aPropos']['ccam']['ccamVersion']= (int) msTools::getCcamVersion();
+  $p['config']['aPropos']['ccam']['ccamVersion']= (float) msTools::getCcamVersion();
   $p['config']['aPropos']['ngap']['ngapVersion']= (string) msTools::getNgapVersion();
   $json['aPropos']=$p['config']['aPropos'];
 
