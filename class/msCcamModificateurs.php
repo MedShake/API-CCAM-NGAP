@@ -30,6 +30,12 @@
 class msCcamModificateurs extends msCcamActe
 {
 
+  private $_modificateur;
+
+  public function setModificateur($modificateur) {
+    return $this->_modificateur=$modificateur;
+  }
+
 /**
  * Obtenir les modificateurs actifs par convention
  * @return array modificateurs actis
@@ -70,6 +76,23 @@ class msCcamModificateurs extends msCcamActe
       return [];
     }
 
+  }
+
+/**
+ * Obtenir les informations par convention PS pour un modificateur
+ * @return array  codePs => détails
+ */
+  public function getModificateurDataParConvention() {
+      $d = msSQL::sql2tabKey("SELECT dt_debut, dt_fin, libelle, coef, forfait, grille_cod FROM `R_TB11` WHERE DT_DEBUT < NOW() and (DT_FIN > NOW() or DT_FIN is null)  and COD_MODIFI = '".$this->_modificateur."' ORDER BY `R_TB11`.`GRILLE_COD` ASC", 'grille_cod');
+
+      if(!empty($d)) {
+        foreach($d as $k=>$v) {
+          msTools::convertToFloat($d[$k], ['coef', 'forfait']);
+        }
+        return $d;
+      } else {
+        return [];
+      }
   }
 
 }

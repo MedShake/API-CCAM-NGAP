@@ -92,6 +92,15 @@ ccam:
         nombre:
           exemple: 100
           description: "nombre de résultats à retourner (limité à 100, 10 par défaut)"
+  "Modificateurs":
+    "/ccam/modificateur/{modificateur}/":
+      description: "Obtenir les informations du modificateur par convention PS."
+      tester: "/ccam/modificateur/F/"
+      methode: "GET"
+    "/ccam/modificateurs/liste/{convention}/":
+      description: "Obtenir la liste des modicateurs CCAM actifs pour une convention PS."
+      tester: "/ccam/modificateurs/liste/9/"
+      methode: "GET"
   "Arborescence":
     "/ccam/arborescence/racine/":
       description: "Obtenir les chapitres de 1er niveau dans l'arborescence CCAM."
@@ -114,8 +123,4 @@ ccam:
     "/ccam/conventions/liste/":
       description: "Obtenir la liste des équivalences entre codes de convention PS et libellés."
       tester: "/ccam/conventions/liste/"
-      methode: "GET"
-    "/ccam/modificateurs/liste/{convention}/":
-      description: "Obtenir la liste des modicateurs CCAM actifs pour une convention PS."
-      tester: "/ccam/modificateurs/liste/9/"
       methode: "GET"

@@ -50,6 +50,7 @@ ccamArborescenceChapitresChapitre: ['GET', '/ccam/arborescence/chapitres/chapitr
 ccamCorrespondances: ['GET', '/ccam/correspondances/[a:correspondance]/', 'ccamCorrespondances']
 
 ccamConventionsListe: ['GET', '/ccam/conventions/liste/', 'ccamConventionsListe']
+ccamModificateur: ['GET', '/ccam/modificateur/[a:modificateur]/', 'ccamModificateur']
 ccamModificateurs: ['GET', '/ccam/modificateurs/liste/[i:convention]/', 'ccamModificateursListe']
 
 ngapActes: ['GET', '/ngap/actes/[a:code]/', 'ngapActes']

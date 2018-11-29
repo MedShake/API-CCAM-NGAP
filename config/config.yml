@@ -42,7 +42,7 @@ aPropos:
     utilisation:       ""
   api:
     api:               "MedShake CCAM NGAP API"
-    apiVersion:        '0.6.0'
+    apiVersion:        '0.7.0'
     auteur:            "Bertrand Boutillier <b.boutillier@gmail.com>"
     licence:           "GNU Affero General Public License"
     web:               "http://www.medshake.net"
