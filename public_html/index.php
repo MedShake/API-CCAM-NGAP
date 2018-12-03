@@ -68,11 +68,10 @@ $json=[];
 $error=[];
 
 // vérification autorisation clef
-$unauthorized='';
-$forbidden='';
+$unauthorized=false;
+$forbidden=false;
 if(!isset($_GET['key']) and !isset($_POST['key'])) {
   $unauthorized = true;
-  $error[]="ERREUR : vous devez présenter une clef d'authentification (key) pour utiliser cette api !";
 } else {
   if(isset($_GET['key'])) {
     $clef=$_GET['key'];
@@ -84,7 +83,6 @@ if(!isset($_GET['key']) and !isset($_POST['key'])) {
     $forbidden = false;
   } else {
     $forbidden = true;
-    $error[]="ERREUR : vous devez présenter une clef d'authentification valide (key) pour utiliser cette api !";
   }
 }
 
@@ -102,10 +100,12 @@ if ($match and is_file('../controlers/'.$match['target'].'.php')) {
     //gestion erreurs
     if($unauthorized == true) {
       header($_SERVER["SERVER_PROTOCOL"]." 401 Unauthorized");
-      $json['erreurs']=$error;
+      unset($json['data']);
+      $json['erreurs']="ERREUR : vous devez présenter une clef d'authentification (key) pour utiliser cette api !";
     } elseif($forbidden == true) {
       header($_SERVER["SERVER_PROTOCOL"]." 404 Forbidden");
-      $json['erreurs']=$error;
+      unset($json['data']);
+      $json['erreurs']="ERREUR : vous devez présenter une clef d'authentification valide (key) pour utiliser cette api !";
     } elseif(!empty($error)) {
       header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
       unset($json['data']);
