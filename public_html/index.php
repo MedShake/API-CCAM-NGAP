@@ -43,7 +43,7 @@ spl_autoload_register(function ($class) {
 // chargement des paramètres de configuration
 $p['config']=Spyc::YAMLLoad('../config/config.yml');
 
-// rotation de la base de données à dates prévues
+// rotation des bases à dates prévues
 if(isset($p['config']['sqlBaseRotation']) and is_array($p['config']['sqlBaseRotation'])) {
   ksort($p['config']['sqlBaseRotation']);
   $nowDate=date('Y-m-d');
@@ -55,6 +55,7 @@ if(isset($p['config']['sqlBaseRotation']) and is_array($p['config']['sqlBaseRota
 // SQL connexion
 $mysqli=msSQL::sqlConnect();
 
+
 // Router
 $router = new AltoRouter();
 $routes=Spyc::YAMLLoad('../config/routes.yml');
@@ -62,7 +63,11 @@ $router->addRoutes($routes);
 //$router->setBasePath($p['config']['urlHostSuffixe']);
 $match = $router->match();
 
-// Vérification autorisation clef
+// controler
+$json=[];
+$error=[];
+
+// vérification autorisation clef
 $unauthorized='';
 $forbidden='';
 if(!isset($_GET['key']) and !isset($_POST['key'])) {
@@ -83,9 +88,7 @@ if(!isset($_GET['key']) and !isset($_POST['key'])) {
   }
 }
 
-// controler
-$json=[];
-$error=[];
+
 if ($match and is_file('../controlers/'.$match['target'].'.php')) {
 
   $p['config']['aPropos']['ccam']['ccamVersion']= (float) msTools::getCcamVersion();
