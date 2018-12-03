@@ -32,6 +32,13 @@
 
 -- --------------------------------------------------------
 
+CREATE TABLE `apiKeys` (
+ `clef` varchar(32) NOT NULL,
+ `user` varchar(50) DEFAULT NULL,
+ `start` datetime DEFAULT NULL,
+ `end` datetime DEFAULT NULL,
+ PRIMARY KEY (`clef`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ngap` (
   `code` varchar(5) NOT NULL,

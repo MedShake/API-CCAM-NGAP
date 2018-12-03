@@ -62,6 +62,27 @@ $router->addRoutes($routes);
 //$router->setBasePath($p['config']['urlHostSuffixe']);
 $match = $router->match();
 
+// Vérification autorisation clef
+$unauthorized='';
+$forbidden='';
+if(!isset($_GET['key']) and !isset($_POST['key'])) {
+  $unauthorized = true;
+  $error[]="ERREUR : vous devez présenter une clef d'authentification (key) pour utiliser cette api !";
+} else {
+  if(isset($_GET['key'])) {
+    $clef=$_GET['key'];
+  } elseif (isset($_POST['key'])) {
+    $clef=$_POST['key'];
+  }
+
+  if(msSQL::sqlUniqueChamp("select clef from apiKeys where clef='".msSQL::cleanVar($clef)."' and (start <= NOW() or start is NULL) and (end>= NOW() or end is NULL) limit 1")) {
+    $forbidden = false;
+  } else {
+    $forbidden = true;
+    $error[]="ERREUR : vous devez présenter une clef d'authentification valide (key) pour utiliser cette api !";
+  }
+}
+
 // controler
 $json=[];
 $error=[];
@@ -76,7 +97,13 @@ if ($match and is_file('../controlers/'.$match['target'].'.php')) {
   if(!isset($template)) {
 
     //gestion erreurs
-    if(!empty($error)) {
+    if($unauthorized == true) {
+      header($_SERVER["SERVER_PROTOCOL"]." 401 Unauthorized");
+      $json['erreurs']=$error;
+    } elseif($forbidden == true) {
+      header($_SERVER["SERVER_PROTOCOL"]." 404 Forbidden");
+      $json['erreurs']=$error;
+    } elseif(!empty($error)) {
       header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
       unset($json['data']);
       $json['erreurs']=$error;
