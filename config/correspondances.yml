@@ -87,7 +87,7 @@ fraisDeplacement:
   - cod_fraidp
   - libelle
   - R_FRAIS_DEP
-conventions:
+grillesTarifaires:
   - cod_grille
   - libelle
   - R_TB23

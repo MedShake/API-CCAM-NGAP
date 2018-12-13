@@ -120,7 +120,7 @@ ccam:
       tester: ""
       methode: "GET"
   "Autres":
-    "/ccam/conventions/liste/":
-      description: "Obtenir la liste des équivalences entre codes de convention PS et libellés."
-      tester: "/ccam/conventions/liste/"
+    "/ccam/grillesTarifaires/liste/":
+      description: "Obtenir la liste des grillesTarifaires et libellés."
+      tester: "/ccam/grillesTarifaires/liste/"
       methode: "GET"

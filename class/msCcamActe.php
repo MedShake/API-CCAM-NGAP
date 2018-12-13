@@ -187,7 +187,7 @@ class msCcamActe
  * Obtenir les tarifs par code convention pour un acte
  * @return array convention=>tarif
  */
-  public function getActeTarifsParConventionPs() {
+  public function getActeTarifsParGrilleTarifaire() {
     $d =  msSQL::sql2tabKey("select t1.grille_cod as convention, t1.pu_base as pu
     from R_PU_BASE as t1
     inner join
