@@ -21,11 +21,19 @@
 */
 
 /**
-* Controler : liste des grilles tarifaires
+* Controler : déterminer la grille tarifaire en fonction des codes PS, Benef et de la date de soin.
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-$grilles = new msCcamGrillesTarifaires;
-$json['data']=$grilles->getGrillesTarifaires();
+$grille = new msCcamGrillesTarifaires;
+$grille->setCodePS($match['params']['codePS']);
+$grille->setCodeBenef($match['params']['codeBenef']);
+if(isset($match['params']['dateSoins'])) {
+  $grille->setDateSoins($match['params']['dateSoins']);
+} else {
+  $grille->setDateSoins(date('Y-m-d'));
+}
+
+$json['data']=$grille->getGrilleTarifaireCode();

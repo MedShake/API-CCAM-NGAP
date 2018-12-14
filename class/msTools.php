@@ -102,4 +102,16 @@ class msTools
     return false;
   }
 
+/**
+ * Valider une date du calendrier
+ * @param  string $date   la date
+ * @param  string $format son format
+ * @return bool         true or false
+ */
+  public static function validateDate($date, $format = 'd/m/Y H:i:s')
+  {
+      $d = DateTime::createFromFormat($format, $date);
+      return $d && $d->format($format) == $date;
+  }
+
 }

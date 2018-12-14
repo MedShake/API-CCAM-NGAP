@@ -21,26 +21,54 @@
 */
 
 /**
-* Class de sortie d'informations sur les conventions ps
+* Class de sortie d'informations sur les grilles tarifaires et leur détermination
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-class msCcamConventions
+class msCcamGrillesTarifaires
 {
+  private $_codePS;
+  private $_codeBenef;
+  private $_dateSoins;
+
+  public function setCodePS($codePS) {
+    return $this->_codePS=$codePS;
+  }
+
+  public function setCodeBenef($codeBenef) {
+    return $this->_codeBenef=$codeBenef;
+  }
+
+  public function setDateSoins($dateSoins) {
+    if(msTools::validateDate($dateSoins, 'Y-m-d')) {
+      return $this->_dateSoins=$dateSoins;
+    } else {
+      return $this->_dateSoins=date('Y-m-d');
+    }
+
+  }
 
 /**
- * Obtenir la liste des conventions ps reconnues
+ * Obtenir la liste des grilles tarifaires
  * @return array code convention => data
  */
-  public function getConventionsListe() {
+  public function getGrillesTarifaires() {
     $d = msSQL::sql2tabKey("select cod_grille, libelle, definition from R_TB23 order by cod_grille", 'cod_grille');
     foreach($d as $k=>$v) {
       settype($d[$k]['cod_grille'], 'int');
 
     }
     return $d;
+  }
+
+  public function getGrilleTarifaireCode() {
+    $d = msSQL::sqlUniqueChamp("select grille_cod from R_TB22 where cod_contxt='".$this->_codePS."' and cod_contx0='".$this->_codeBenef."' and dt_debut <= '".$this->_dateSoins."' and (dt_fin >= '".$this->_dateSoins."' or dt_fin is null)");
+    return array(
+      'codeGrilleTarifaire'=>$d,
+      'dateSoins'=>$this->_dateSoins
+    );
   }
 
 
