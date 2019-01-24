@@ -52,7 +52,7 @@ class msCcamGrillesTarifaires
 
 /**
  * Obtenir la liste des grilles tarifaires
- * @return array code convention => data
+ * @return array code grille tarifaire => data
  */
   public function getGrillesTarifaires() {
     $d = msSQL::sql2tabKey("select cod_grille, libelle, definition from R_TB23 order by cod_grille", 'cod_grille');

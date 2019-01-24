@@ -37,11 +37,11 @@ class msCcamModificateurs extends msCcamActe
   }
 
 /**
- * Obtenir les modificateurs actifs par convention
+ * Obtenir les modificateurs actifs par grille tarifaire
  * @return array modificateurs actis
  */
-  public function getModificateurActifsCodesPourConvention() {
-    if($d = msSQL::sql2tabSimple("SELECT cod_modifi FROM R_TB11 WHERE `GRILLE_COD` = '".$this->getConvention()."' AND DT_DEBUT < NOW() and (DT_FIN > NOW() or DT_FIN is NULL) ORDER BY `R_TB11`.`COD_MODIFI` ASC")) {
+  public function getModificateurActifsCodesPourGrilleTarifaire() {
+    if($d = msSQL::sql2tabSimple("SELECT cod_modifi FROM R_TB11 WHERE `GRILLE_COD` = '".$this->getGrillesTarifaires()."' AND DT_DEBUT < NOW() and (DT_FIN > NOW() or DT_FIN is NULL) ORDER BY `R_TB11`.`COD_MODIFI` ASC")) {
       return $d;
     } else {
       return [];
@@ -49,24 +49,24 @@ class msCcamModificateurs extends msCcamActe
   }
 
 /**
- * Obtenir les modificaturs actifs pour toutes les conventions
- * @return array code convention => modificateurs
+ * Obtenir les modificateurs actifs pour toutes les grilles tarifaires
+ * @return array code grille tarifaire => modificateurs
  */
-  public function getModificateurActifsCodesToutesConventions() {
+  public function getModificateurActifsCodesToutesGrillesTarifaires() {
     $modiflist=[];
     for($i=3;$i<17;$i++) {
-      $this->setConvention($i);
-      $modiflist[$i] = $this->getModificateurActifsCodesPourConvention();
+      $this->setGrilleTarifaire($i);
+      $modiflist[$i] = $this->getModificateurActifsCodesPourGrilleTarifaire();
     }
     return $modiflist;
   }
 
 /**
- * Obtenir la liste des modificateurs pour une convention avec les détails
+ * Obtenir la liste des modificateurs pour une grille tarifaire avec les détails
  * @return array code => détails
  */
-  public function getModificateurActifsListePourConvention() {
-    $d = msSQL::sql2tabKey("SELECT cod_modifi, dt_debut, dt_fin, libelle, coef, forfait FROM `R_TB11` WHERE DT_DEBUT < NOW() and (DT_FIN > NOW() or DT_FIN is null)  and GRILLE_COD = '".$this->getConvention()."' ORDER BY `R_TB11`.`COD_MODIFI` ASC", 'cod_modifi');
+  public function getModificateurActifsListePourGrilleTarifaire() {
+    $d = msSQL::sql2tabKey("SELECT cod_modifi, dt_debut, dt_fin, libelle, coef, forfait FROM `R_TB11` WHERE DT_DEBUT < NOW() and (DT_FIN > NOW() or DT_FIN is null)  and GRILLE_COD = '".$this->getGrillesTarifaires()."' ORDER BY `R_TB11`.`COD_MODIFI` ASC", 'cod_modifi');
     if(!empty($d)) {
       foreach($d as $k=>$v) {
         msTools::convertToFloat($d[$k], ['coef', 'forfait']);
@@ -79,10 +79,10 @@ class msCcamModificateurs extends msCcamActe
   }
 
 /**
- * Obtenir les informations par convention PS pour un modificateur
+ * Obtenir les informations par grille tarifaire pour un modificateur
  * @return array  codePs => détails
  */
-  public function getModificateurDataParConvention() {
+  public function getModificateurDataParGrilleTarifaire() {
       $d = msSQL::sql2tabKey("SELECT dt_debut, dt_fin, libelle, coef, forfait, grille_cod FROM `R_TB11` WHERE DT_DEBUT < NOW() and (DT_FIN > NOW() or DT_FIN is null)  and COD_MODIFI = '".$this->_modificateur."' ORDER BY `R_TB11`.`GRILLE_COD` ASC", 'grille_cod');
 
       if(!empty($d)) {

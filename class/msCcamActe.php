@@ -45,10 +45,10 @@ class msCcamActe
  */
   private $_phase;
 /**
- * Code convention PS
+ * Code grille tarifaire
  * @var int
  */
-  private $_convention;
+  private $_grilleTarifaire;
 /**
  * Date de modification de l'acte
  * @var string
@@ -87,11 +87,11 @@ class msCcamActe
     return $this->_phase = $phase;
   }
 /**
- * Définir le code convention PS
- * @param int $convention code convention ps
+ * Définir le code grille tarifaire
+ * @param int $grilleTarifaire code grille tarifaire
  */
-  public function setConvention($convention) {
-    return $this->_convention = $convention;
+  public function setGrilleTarifaire($grilleTarifaire) {
+    return $this->_grilleTarifaire = $grilleTarifaire;
   }
 /**
  * Obtenir le code activité
@@ -108,11 +108,11 @@ class msCcamActe
     return $this->_phase;
   }
 /**
- * Obtenir le code convention
- * @return int code convention
+ * Obtenir le code grille tarifaire
+ * @return int code grille tarifaire
  */
-  public function getConvention() {
-    return $this->_convention;
+  public function getGrillesTarifaires() {
+    return $this->_grilleTarifaire;
   }
 
 /**
@@ -184,11 +184,11 @@ class msCcamActe
   }
 
 /**
- * Obtenir les tarifs par code convention pour un acte
- * @return array convention=>tarif
+ * Obtenir les tarifs par code grile tarifaire pour un acte
+ * @return array code grille tarifaire=>tarif
  */
   public function getActeTarifsParGrilleTarifaire() {
-    $d =  msSQL::sql2tabKey("select t1.grille_cod as convention, t1.pu_base as pu
+    $d =  msSQL::sql2tabKey("select t1.grille_cod as grilleTarifaire, t1.pu_base as pu
     from R_PU_BASE as t1
     inner join
     ( select grille_cod , max(apdt_modif) as max_date
@@ -196,7 +196,7 @@ class msCcamActe
     on t1.grille_cod = t2.grille_cod and
     t1.apdt_modif = t2.max_date
     where t1.aap_cod = '".$this->_acte.$this->_activite.$this->_phase."'
-    ",'convention', 'pu');
+    ",'grilleTarifaire', 'pu');
     if(!empty($d)) {
       return array_map('floatval', $d);
     } else {
@@ -214,13 +214,13 @@ class msCcamActe
   }
 
 /**
- * Obtenir les modificateurs possibles d'un acte par convention
- * @return array convention => modificateurs
+ * Obtenir les modificateurs possibles d'un acte par grille tarifaire
+ * @return array grille tarifaire => modificateurs
  */
-  public function getActeModificateursToutesConventions() {
+  public function getActeModificateursToutesGrillesTarifaires() {
     $d=[];
     $modificateurs = new msCcamModificateurs;
-    if($modificateurs = $modificateurs->getModificateurActifsCodesToutesConventions()) {
+    if($modificateurs = $modificateurs->getModificateurActifsCodesToutesGrillesTarifaires()) {
       foreach($modificateurs as $k=>$v) {
         $q = msSQL::sql2tab("SELECT max(AADT_MODIF) as maxdate, modifi_cod FROM R_ACTIVITE_MODIFICATEUR where AA_CODE='".$this->_acte.$this->_activite."' and modifi_cod in ('".implode("', '",$v)."') and AADT_MODIF='".$this->_dt_modif."' group by AA_CODE,MODIFI_COD");
         if(!empty($q)) {

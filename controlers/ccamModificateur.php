@@ -31,7 +31,7 @@ if(isset($match['params']['modificateur']) and is_string($match['params']['modif
 
   $modificateur = new msCcamModificateurs;
   $modificateur->setModificateur($match['params']['modificateur']);
-  $json['data']=$modificateur->getModificateurDataParConvention();
+  $json['data']=$modificateur->getModificateurDataParGrilleTarifaire();
 
 } else {
   $error[]="erreur";

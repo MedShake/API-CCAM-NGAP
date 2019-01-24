@@ -94,11 +94,11 @@ ccam:
           description: "nombre de résultats à retourner (limité à 100, 10 par défaut)"
   "Modificateurs":
     "/ccam/modificateur/{modificateur}/":
-      description: "Obtenir les informations du modificateur par convention PS."
+      description: "Obtenir les informations du modificateur par grille tarifaire."
       tester: "/ccam/modificateur/F/"
       methode: "GET"
-    "/ccam/modificateurs/liste/{convention}/":
-      description: "Obtenir la liste des modicateurs CCAM actifs pour une convention PS."
+    "/ccam/modificateurs/liste/{grilleTarifaire}/":
+      description: "Obtenir la liste des modicateurs CCAM actifs pour une grille tarifaire."
       tester: "/ccam/modificateurs/liste/9/"
       methode: "GET"
   "Arborescence":

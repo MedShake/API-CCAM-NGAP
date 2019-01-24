@@ -27,11 +27,11 @@
 *
 */
 
-if(isset($match['params']['convention']) and is_numeric($match['params']['convention'])) {
+if(isset($match['params']['grilleTarifaire']) and is_numeric($match['params']['grilleTarifaire'])) {
 
   $modificateurs = new msCcamModificateurs;
-  $modificateurs->setConvention($match['params']['convention']);
-  $json['data']=$modificateurs->getModificateurActifsListePourConvention();
+  $modificateurs->setGrilleTarifaire($match['params']['grilleTarifaire']);
+  $json['data']=$modificateurs->getModificateurActifsListePourGrilleTarifaire();
 
 } else {
   $error[]="erreur";

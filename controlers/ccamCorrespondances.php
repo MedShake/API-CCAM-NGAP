@@ -27,31 +27,6 @@
 *
 */
 
-
-// $corres = array(
-//   'conventions'=>['cod_grille', 'libelle','R_TB23'],
-//   'fraisDeplacement'=>['cod_fraidp', 'libelle', 'R_FRAIS_DEP'],
-//   'regroupements'=>['cod_regrou', 'libelle','R_REGROUPEMENT'],
-//   'remboursements'=>['cod_rembou', 'libelle', 'R_REMBOURSEMENT'],
-//   'typesActes'=>['cod_type', 'libelle', 'R_TYPE'],
-//   'categoriesMedicales'=>['cod_catmed', 'libelle', 'R_CATEGORIE_MEDIC'],
-//   'categoriesSpecialites'=>['cod_catspe', 'libelle', 'R_CATE_SPEC'],
-//   'classeDmt'=>['cod_cldmt', 'libelle', 'R_CLASSE_DMT'],
-//   'conditionsGenerales'=>['cod_condge',
-//     ['libelle', 'libelle0', 'libelle1', 'libelle2', 'libelle3', 'libelle4', 'libelle5', 'libelle6', 'libelle7', 'libelle8', 'libelle9', 'libellea', 'libelleb', 'libellec', 'libelled', 'libellee', ], 'R_COND_GEN'],
-//   'contextesBeneficiaires'=>['cod_contxt', 'libelle', 'R_CONTEXT_BN'],
-//   'contextesProfessionnelSante'=>['cod_contxt', 'libelle', 'R_CONTEXT_PS'],
-//   'dents'=>['numero_den', 'libelle', 'R_DENT'],
-//   'dom'=>['cod_dom', 'libelle', 'R_DOM'],
-//   'exonerationsTicketModerateur'=>['cod_exotm', 'libelle', 'R_EXO_TM'],
-//   'extensionsDocumentaires'=>['cod_extens', 'libelle', 'R_EXTENSION'],
-//   'forfaits'=>['cod_forfai', 'libelle', 'R_FORFAIT'],
-//   'naturesAssurances'=>['cod_natass', 'libelle', 'R_NAT_ASS'],
-//   'paiements'=>['cod_paiemt', 'libelle', 'R_PAIEMENT'],
-//   'phases'=>['cod_phase', 'libelle', 'R_PHASE'],
-//   'typesNotes'=>['cod_typnot', 'libelle', 'R_TYPE_NOTE'],
-// );
-
 $corres=Spyc::YAMLLoad('../config/correspondances.yml');
 
 if(in_array($match['params']['correspondance'], array_keys($corres))) {

@@ -53,7 +53,7 @@ ccamGrillesTarifairesListe: ['GET', '/ccam/grillesTarifaires/liste/', 'ccamGrill
 ccamGrillesTarifairesDeterminer: ['GET', '/ccam/grillesTarifaires/determiner/[i:codePS]/[i:codeBenef]/[:dateSoins]?/', 'ccamGrillesTarifairesDeterminer']
 
 ccamModificateur: ['GET', '/ccam/modificateur/[a:modificateur]/', 'ccamModificateur']
-ccamModificateurs: ['GET', '/ccam/modificateurs/liste/[i:convention]/', 'ccamModificateursListe']
+ccamModificateurs: ['GET', '/ccam/modificateurs/liste/[i:grilleTarifaire]/', 'ccamModificateursListe']
 
 ngapActes: ['GET', '/ngap/actes/[a:code]/', 'ngapActes']
 ngapActesListerParCodePrestation: ['GET', '/ngap/actes/liste/codePrestation/[a:codePrestation]/', 'ngapActesListerParCodePrestation']

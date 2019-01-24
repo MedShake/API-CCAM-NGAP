@@ -61,7 +61,7 @@ if(empty($error)) {
   $json['data'] = array_merge($json['data'], $acte->getActeInfoGenerales(), $acte->getActeActivitePhaseComplement());
   $json['data']['forfai_cod']=$acte->getActeForfait();
   $json['data']['tarifParGrilleTarifaire']=$acte->getActeTarifsParGrilleTarifaire();
-  $json['data']['modificateursApplicables']=$acte->getActeModificateursToutesConventions();
+  $json['data']['modificateursApplicables']=$acte->getActeModificateursToutesGrillesTarifaires();
   $json['data']['majorationsDom']=$acte->getActeMajorationsDom();
   $json['data']['activites'] = array_keys($acte->getActeActivites());
   $json['data']['activitesPhases'] = $acte->getActeActivites();
