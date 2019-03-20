@@ -55,5 +55,7 @@ ccamGrillesTarifairesDeterminer: ['GET', '/ccam/grillesTarifaires/determiner/[i:
 ccamModificateur: ['GET', '/ccam/modificateur/[a:modificateur]/', 'ccamModificateur']
 ccamModificateurs: ['GET', '/ccam/modificateurs/liste/[i:grilleTarifaire]/', 'ccamModificateursListe']
 
-ngapActes: ['GET', '/ngap/actes/[a:code]/', 'ngapActes']
-ngapActesListerParCodePrestation: ['GET', '/ngap/actes/liste/codePrestation/[a:codePrestation]/', 'ngapActesListerParCodePrestation']
+ngapActes: ['GET', '/ngap/actes/[a:code]/[a:prof]?/', 'ngapActes']
+ngapActesListerParType: ['GET', '/ngap/actes/liste/typeActe/[a:prof]/[a:type]/', 'ngapActesListerParType']
+ngapActesListerParCodePrestation: ['GET', '/ngap/actes/liste/codePrestation/[a:codePrestation]/[a:prof]?/', 'ngapActesListerParCodePrestation']
+ngapCodesProfessionListe: ['GET', '/ngap/codesProfession/liste/', 'ngapCodesProfessionListe']

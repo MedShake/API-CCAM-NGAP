@@ -37,7 +37,7 @@ class msSQL
   public static function sqlConnect()
   {
       global $p;
-      $mysqli = new mysqli($p['config']['sqlServeur'], $p['config']['sqlUser'], $p['config']['sqlPass'], $p['config']['sqlBase']);
+      $mysqli = new mysqli($p['config']['sqlServeur'], $p['config']['sqlUser'], $p['config']['sqlPass'], $p['config']['sqlBaseCcam']);
       $mysqli->set_charset("utf8");
       if (mysqli_connect_errno()) {
           die('Echec de connexion à la base de données');

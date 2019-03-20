@@ -28,14 +28,28 @@
 #######################################
 
 ngap:
-  "/ngap/actes/{code}/":
-    description: "Obtenir les informations générales sur l'acte NGAP à partir du code de l'acte."
-    tester: "/ngap/actes/MEG/"
-    methode: "GET"
-  "/ngap/actes/liste/codePrestation/{codePrestation}/":
-    description: "Obtenir la liste des prestations NGAP recouvertes par un code prestation agrégé."
-    tester: "/ngap/actes/liste/codePrestation/MCX/"
-    methode: "GET"
+  "Lettres clés":
+    "/ngap/actes/{code}/":
+      description: "Obtenir toutes les informations sur l'acte NGAP à partir du code de l'acte."
+      tester: "/ngap/actes/TC/"
+      methode: "GET"
+    "/ngap/actes/{code}/{codeProfession}/":
+      description: "Obtenir les informations sur l'acte NGAP en fonction du contexte déterminé par le code profession."
+      tester: "/ngap/actes/CSC/mcardio/"
+      methode: "GET"
+    "/ngap/actes/liste/typeActe/{codeProfession}/{type}/":
+      description: "Obtenir la liste des codes NGAP référencés par type de code (consultation | majoration | indemnite | forfait | autre)."
+      tester: "/ngap/actes/liste/typeActe/mg/majoration/"
+      methode: "GET"
+    "/ngap/actes/liste/codePrestation/{codePrestation}/":
+      description: "Obtenir la liste des prestations NGAP recouvertes par un code prestation agrégé."
+      tester: "/ngap/actes/liste/codePrestation/MCX/"
+      methode: "GET"
+  "Codes profession":
+    "/ngap/codesProfession/liste/":
+      description: "Obtenir la liste des codes profession utilisables."
+      tester: "/ngap/codesProfession/liste/"
+      methode: "GET"
 ccam:
   "Actes":
     "/ccam/actes/{code}/":

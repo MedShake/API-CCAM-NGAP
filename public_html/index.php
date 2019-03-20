@@ -43,12 +43,21 @@ spl_autoload_register(function ($class) {
 // chargement des paramètres de configuration
 $p['config']=Spyc::YAMLLoad('../config/config.yml');
 
-// rotation des bases à dates prévues
-if(isset($p['config']['sqlBaseRotation']) and is_array($p['config']['sqlBaseRotation'])) {
-  ksort($p['config']['sqlBaseRotation']);
+// rotation des bases CCAM à dates prévues
+if(isset($p['config']['sqlBaseCcamRotation']) and is_array($p['config']['sqlBaseCcamRotation'])) {
+  ksort($p['config']['sqlBaseCcamRotation']);
   $nowDate=date('Y-m-d');
-  foreach($p['config']['sqlBaseRotation'] as $dateApplication=>$baseVersion) {
-    if($nowDate >= $dateApplication) {$p['config']['sqlBase']=$baseVersion;}
+  foreach($p['config']['sqlBaseCcamRotation'] as $dateApplication=>$baseVersion) {
+    if($nowDate >= $dateApplication) {$p['config']['sqlBaseCcam']=$baseVersion;}
+  }
+}
+
+// rotation des bases NGAP à dates prévues
+if(isset($p['config']['sqlBaseNgapRotation']) and is_array($p['config']['sqlBaseNgapRotation'])) {
+  ksort($p['config']['sqlBaseNgapRotation']);
+  $nowDate=date('Y-m-d');
+  foreach($p['config']['sqlBaseNgapRotation'] as $dateApplication=>$baseVersion) {
+    if($nowDate >= $dateApplication) {$p['config']['sqlBaseNgap']=$baseVersion;}
   }
 }
 
@@ -79,7 +88,7 @@ if(!isset($_GET['key']) and !isset($_POST['key'])) {
     $clef=$_POST['key'];
   }
 
-  if(msSQL::sqlUniqueChamp("select clef from apiKeys where clef='".msSQL::cleanVar($clef)."' and (start <= NOW() or start is NULL) and (end>= NOW() or end is NULL) limit 1")) {
+  if(msSQL::sqlUniqueChamp("select clef from `".$p['config']['sqlBaseConfig']."`.apiKeys where clef='".msSQL::cleanVar($clef)."' and (start <= NOW() or start is NULL) and (end>= NOW() or end is NULL) limit 1")) {
     $forbidden = false;
   } else {
     $forbidden = true;

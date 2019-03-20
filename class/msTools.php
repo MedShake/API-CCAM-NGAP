@@ -35,7 +35,8 @@ class msTools
  * @return int n° de version de la ccam
  */
   public static function getCcamVersion() {
-    return msSQL::sqlUniqueChamp("select val from params where param = 'ccamVersion'");
+    global $p;
+    return msSQL::sqlUniqueChamp("select val from `".$p['config']['sqlBaseCcam']."`.params where param = 'ccamVersion'");
   }
 
 /**
@@ -43,7 +44,8 @@ class msTools
  * @return int n° de version de la ccam
  */
   public static function getNgapVersion() {
-    return msSQL::sqlUniqueChamp("select val from params where param = 'ngapVersion'");
+    global $p;
+    return msSQL::sqlUniqueChamp("select val from `".$p['config']['sqlBaseNgap']."`.params where param = 'ngapVersion'");
   }
 
 /**

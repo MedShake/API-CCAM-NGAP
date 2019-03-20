@@ -21,21 +21,11 @@
 */
 
 /**
-* Controler : acte NGAP
+* Controler : liste des codes profession NGAP
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
-$acte = new msNgapActe;
-if($acte->setActe($match['params']['code'])) {
-  if(isset($match['params']['prof'])) {
-    $acte->setCodeProf($match['params']['prof']);
-    $json['data'] = $acte->getActeInfoGenerales();
-  } else {
-    $acte->setCodeProf(NULL);
-    $json['data'] = $acte->getActeInfoBase();
-  }
-} else {
-  $error[]="Le code NGAP n'est pas correct";
-}
+$codes = new msNgapActe;
+$json['data']=$codes->getCodesProfession();

@@ -2,7 +2,7 @@
 /*
 * This file is part of MedShake CCAM NGAP API.
 *
-* Copyright (c) 2018
+* Copyright (c) 2019
 * Bertrand Boutillier <b.boutillier@gmail.com>
 * http://www.medshake.net
 *
@@ -21,21 +21,20 @@
 */
 
 /**
-* Controler : acte NGAP
+* Controler : acte NGAP, lister par type
 *
 * @author Bertrand Boutillier <b.boutillier@gmail.com>
 *
 */
 
 $acte = new msNgapActe;
-if($acte->setActe($match['params']['code'])) {
-  if(isset($match['params']['prof'])) {
-    $acte->setCodeProf($match['params']['prof']);
-    $json['data'] = $acte->getActeInfoGenerales();
-  } else {
-    $acte->setCodeProf(NULL);
-    $json['data'] = $acte->getActeInfoBase();
-  }
+if(isset($match['params']['prof'])) {
+  $acte->setCodeProf($match['params']['prof']);
 } else {
-  $error[]="Le code NGAP n'est pas correct";
+  $acte->setCodeProf(NULL);
+}
+if($acte->setTypeActe($match['params']['type'])) {
+  $json['data'] = $acte->getListeActesViaType();
+} else {
+  $error[]="Le type n'est pas correct";
 }

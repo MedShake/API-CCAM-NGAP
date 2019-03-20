@@ -30,9 +30,11 @@
 sqlServeur:            'localhost'
 sqlUser:               ''
 sqlPass:               ''
-sqlBase:               ''
+sqlBaseCcam:           ''
+sqlBaseNgap:           ''
+sqlBaseConfig:         ''
 
-sqlBaseRotation:
+sqlBaseCcamRotation:
   2018-10-01: ''
   2018-11-01: ''
 
@@ -42,7 +44,7 @@ aPropos:
     utilisation:       ""
   api:
     api:               "MedShake CCAM NGAP API"
-    apiVersion:        '1.0.0'
+    apiVersion:        '2.0.0'
     auteur:            "Bertrand Boutillier <b.boutillier@gmail.com>"
     licence:           "GNU Affero General Public License"
     web:               "http://www.medshake.net"

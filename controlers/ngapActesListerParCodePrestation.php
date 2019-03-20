@@ -28,6 +28,11 @@
 */
 
 $acte = new msNgapActe;
+if(isset($match['params']['prof'])) {
+  $acte->setCodeProf($match['params']['prof']);
+} else {
+  $acte->setCodeProf(NULL);
+}
 if($acte->setCodePrestation($match['params']['codePrestation'])) {
   $json['data'] = $acte->getListeActesViaCodePrestation();
 } else {
