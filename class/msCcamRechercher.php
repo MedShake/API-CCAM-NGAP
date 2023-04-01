@@ -49,11 +49,11 @@ class msCcamRechercher
   }
 
   /**
-   * Obtenir liste actes par rcherche texte
+   * Obtenir liste actes par recherche texte
    * @return array informations générales
    */
       public function getRechercherActes() {
-        $d=msSQL::sql2tabKey("select cod_acte, concat(nom_long, nom_long0, nom_long1, nom_long2, nom_long3, nom_long4, nom_long5, nom_long6, nom_long7, nom_long8, nom_long9, nom_longa, nom_longb, nom_longc, nom_longd, nom_longe) as nom_lg from R_ACTE where concat(nom_long, nom_long0, nom_long1, nom_long2, nom_long3, nom_long4, nom_long5, nom_long6, nom_long7, nom_long8, nom_long9, nom_longa, nom_longb, nom_longc, nom_longd, nom_longe) like '".msSQL::cleanVar($this->_texte)."' group by cod_acte, nom_lg limit ".$this->_debut.",".$this->_nombre, 'cod_acte', 'nom_lg');
+        $d=msSQL::sql2tabKey("select cod_acte, concat(nom_long, nom_long0, nom_long1, nom_long2, nom_long3, nom_long4, nom_long5, nom_long6, nom_long7, nom_long8, nom_long9, nom_longa, nom_longb, nom_longc, nom_longd, nom_longe) as nom_lg from R_ACTE where concat(nom_long, nom_long0, nom_long1, nom_long2, nom_long3, nom_long4, nom_long5, nom_long6, nom_long7, nom_long8, nom_long9, nom_longa, nom_longb, nom_longc, nom_longd, nom_longe) like '".msSQL::cleanVar($this->_texte)."' or cod_acte like '".msSQL::cleanVar($this->_texte)."' group by cod_acte, nom_lg limit ".$this->_debut.",".$this->_nombre, 'cod_acte', 'nom_lg');
         return $d;
       }
 
