@@ -1,6 +1,5 @@
---
--- Database: `api_ccam`
---
+CREATE DATABASE IF NOT EXISTS CCAM;
+USE CCAM;
 
 -- --------------------------------------------------------
 

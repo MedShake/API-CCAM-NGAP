@@ -1,6 +1,5 @@
---
--- Database: `api_config`
---
+CREATE DATABASE IF NOT EXISTS config;
+USE config;
 
 -- --------------------------------------------------------
 
@@ -15,3 +14,4 @@ CREATE TABLE IF NOT EXISTS `apiKeys` (
   `end` datetime DEFAULT NULL,
   PRIMARY KEY (`clef`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

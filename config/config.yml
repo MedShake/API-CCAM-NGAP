@@ -30,13 +30,12 @@
 sqlServeur:            'localhost'
 sqlUser:               ''
 sqlPass:               ''
-sqlBaseCcam:           ''
-sqlBaseNgap:           ''
-sqlBaseConfig:         ''
+sqlBaseCcam:           'CCAM'
+sqlBaseNgap:           'NGAP'
+sqlBaseConfig:         'config'
 
 sqlBaseCcamRotation:
-  2018-10-01: ''
-  2018-11-01: ''
+  2018-10-01: 'CCAM'
 
 aPropos:
   serveur:

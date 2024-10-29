@@ -1,6 +1,5 @@
---
--- Database: `api_ngap`
---
+CREATE DATABASE IF NOT EXISTS NGAP;
+USE NGAP;
 
 -- --------------------------------------------------------
 
