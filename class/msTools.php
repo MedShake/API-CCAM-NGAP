@@ -100,7 +100,7 @@ class msTools
  */
   public static function validateChapitreString($code) {
     $codeRe = str_replace('.','', $code);
-    if(preg_match('#^[0-9]+$#', $codeRe) and is_numeric($codeRe{0})) return true;
+    if(preg_match('#^[0-9]+$#', $codeRe) and is_numeric($codeRe[0])) return true;
     return false;
   }
 
