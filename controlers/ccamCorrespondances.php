@@ -27,7 +27,7 @@
 *
 */
 
-$corres=Spyc::YAMLLoad('../config/correspondances.yml');
+$corres=yaml_parse_file('../config/correspondances.yml');
 
 if(in_array($match['params']['correspondance'], array_keys($corres))) {
   $correspondance = new msCcamCorrespondances;
